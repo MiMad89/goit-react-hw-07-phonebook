@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import css from './ContactsForm.module.css';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 
 export const ContactsForm = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ export const ContactsForm = () => {
           type="tel"
           name="number"
           placeholder="Enter phone number"
-          pattern="^[+]?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{2,4}$"
+          // pattern="^[+]?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{1,3}-?[0-9]{2,4}$"
           title="Phone number must be 11 digits and can contain numbers, spaces, dashes, pot-bellied brackets and can start with +"
           required
         />
