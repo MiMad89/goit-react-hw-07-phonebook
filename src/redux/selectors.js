@@ -15,7 +15,7 @@ export const selectVisibleContacts = createSelector(
             return contacts;
         } else {
             return contacts.filter(contact =>
-                contact.name.toLowerCase().includes(filter.filter) ?? [],
+                contact.name.toLowerCase().includes(filter.filter),
             );
         }
     },

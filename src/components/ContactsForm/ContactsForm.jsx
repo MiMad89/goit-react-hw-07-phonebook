@@ -1,20 +1,29 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './ContactsForm.module.css';
 import { addContact } from 'redux/operations';
-
+import { selectContacts } from 'redux/selectors';
 
 export const ContactsForm = () => {
   const dispatch = useDispatch();
 
+  const stateContacts = useSelector(selectContacts);
+  const stateContactsNames = stateContacts.map(contact => contact.name);
+
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.elements.name.value;
-    const number = form.elements.phone.value;
+    const contact = {
+      name: e.target.elements.name.value,
+      phone: e.target.elements.phone.value,
+    };
 
-    dispatch(addContact(name, number));
+    if (stateContactsNames.includes(contact.name)) {
+      e.target.reset();
+      return alert(`${contact.name} is alredy in contacts`);
+    }
 
-    form.reset();
+    dispatch(addContact(contact));
+
+    e.target.reset();
   };
 
   return (
@@ -25,7 +34,6 @@ export const ContactsForm = () => {
           type="text"
           name="name"
           placeholder="Enter name"
-
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
